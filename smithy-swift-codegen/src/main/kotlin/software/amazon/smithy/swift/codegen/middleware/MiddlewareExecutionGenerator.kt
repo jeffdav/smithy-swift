@@ -52,10 +52,22 @@ class MiddlewareExecutionGenerator(
             SmithyHTTPAPITypes.HTTPResponse,
         )
         writer.openBlock("config.interceptorProviders.forEach { provider in", "}") {
-            writer.write("builder.interceptors.add(provider.create())")
+            writer.write(
+                "builder.interceptors.add(provider.create() as any \$N<\$N, \$N, \$N, \$N>)",
+                ClientRuntimeTypes.Middleware.Interceptor,
+                inputShape,
+                outputShape,
+                SmithyHTTPAPITypes.HTTPRequest,
+                SmithyHTTPAPITypes.HTTPResponse)
         }
         writer.openBlock("config.httpInterceptorProviders.forEach { provider in", "}") {
-            writer.write("builder.interceptors.add(provider.create())")
+            writer.write(
+                "builder.interceptors.add(provider.create() as any \$N<\$N, \$N, \$N, \$N>)",
+                ClientRuntimeTypes.Middleware.Interceptor,
+                inputShape,
+                outputShape,
+                SmithyHTTPAPITypes.HTTPRequest,
+                SmithyHTTPAPITypes.HTTPResponse)
         }
 
         renderMiddlewares(ctx, op, operationStackName)

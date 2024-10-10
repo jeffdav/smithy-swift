@@ -227,10 +227,10 @@ extension EventStreamTestClientTypes.TestStream {
                       .build()
         let builder = ClientRuntime.OrchestratorBuilder<TestStreamOpInput, TestStreamOpOutput, SmithyHTTPAPI.HTTPRequest, SmithyHTTPAPI.HTTPResponse>()
         config.interceptorProviders.forEach { provider in
-            builder.interceptors.add(provider.create())
+            builder.interceptors.add(provider.create() as any ClientRuntime.Interceptor<TestStreamOpInput, TestStreamOpOutput, SmithyHTTPAPI.HTTPRequest, SmithyHTTPAPI.HTTPResponse>)
         }
         config.httpInterceptorProviders.forEach { provider in
-            builder.interceptors.add(provider.create())
+            builder.interceptors.add(provider.create() as any ClientRuntime.Interceptor<TestStreamOpInput, TestStreamOpOutput, SmithyHTTPAPI.HTTPRequest, SmithyHTTPAPI.HTTPResponse>)
         }
         builder.interceptors.add(ClientRuntime.URLPathMiddleware<TestStreamOpInput, TestStreamOpOutput>(TestStreamOpInput.urlPathProvider(_:)))
         builder.interceptors.add(ClientRuntime.URLHostMiddleware<TestStreamOpInput, TestStreamOpOutput>())

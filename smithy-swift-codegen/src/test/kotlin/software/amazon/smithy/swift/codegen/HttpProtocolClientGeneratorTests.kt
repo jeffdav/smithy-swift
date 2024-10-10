@@ -158,10 +158,10 @@ extension RestJsonProtocolClient {
                       .build()
         let builder = ClientRuntime.OrchestratorBuilder<AllocateWidgetInput, AllocateWidgetOutput, SmithyHTTPAPI.HTTPRequest, SmithyHTTPAPI.HTTPResponse>()
         config.interceptorProviders.forEach { provider in
-            builder.interceptors.add(provider.create())
+            builder.interceptors.add(provider.create() as any ClientRuntime.Interceptor<AllocateWidgetInput, AllocateWidgetOutput, SmithyHTTPAPI.HTTPRequest, SmithyHTTPAPI.HTTPResponse>)
         }
         config.httpInterceptorProviders.forEach { provider in
-            builder.interceptors.add(provider.create())
+            builder.interceptors.add(provider.create() as any ClientRuntime.Interceptor<AllocateWidgetInput, AllocateWidgetOutput, SmithyHTTPAPI.HTTPRequest, SmithyHTTPAPI.HTTPResponse>)
         }
         builder.interceptors.add(ClientRuntime.IdempotencyTokenMiddleware<AllocateWidgetInput, AllocateWidgetOutput>(keyPath: \.clientToken))
         builder.interceptors.add(ClientRuntime.URLPathMiddleware<AllocateWidgetInput, AllocateWidgetOutput>(AllocateWidgetInput.urlPathProvider(_:)))
